@@ -24,3 +24,6 @@ done
 for i in $(< $wd/packages); do
   apt-get -y install $i
 done
+
+[ -d ~/bin ] || mkdir ~/bin
+ln -f $wd/bin/* ~/bin
