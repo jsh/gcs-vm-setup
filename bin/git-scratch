@@ -1,0 +1,12 @@
+#!/bin/bash -eux
+
+dir=${1:-hello}
+
+[ -d $dir ] && rm -r $dir
+git init $dir
+cd $dir
+touch README
+git add .
+git commit -am"initial"
+
+

@@ -1,0 +1,26 @@
+#!/bin/bash -eux
+
+wd=$( dirname $(readlink -f $0) )
+for i in ~/.vimrc ~/.exrc; do
+  grep -q autowrite $i || { echo set autowrite >> $i; }
+done
+
+git config --global user.name || git config --global user.name "Jeffrey S. Haemer"
+git config --global user.email || git config --global user.email "jeffrey.haemer@gmail.com"
+
+if ! grep -q bash-local ~/.bashrc; then
+  cat <<__EOF__ >> ~/.bashrc
+# local mods
+if [ -r ~/.bash-local ]; then
+  source ~/.bash-local
+fi
+__EOF__
+fi
+
+for i in bash-{aliases,functions,local,variables}; do
+  [ -f ~/.$i ] || ln $wd/$i ~/.$i
+done
+
+for i in $(< $wd/packages); do
+  apt-get -y install $i
+done
