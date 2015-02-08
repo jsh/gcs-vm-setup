@@ -27,3 +27,5 @@ done
 
 [ -d ~/bin ] || mkdir ~/bin
 ln -f $wd/bin/* ~/bin
+
+sudo updatedb
